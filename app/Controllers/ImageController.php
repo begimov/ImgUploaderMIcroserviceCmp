@@ -22,7 +22,7 @@ class ImageController extends Controller
         }
 
         $response->getBody()
-            ->write($this->c->image->make(uploads_path($image->uuid))->encode('png'));
+            ->write($this->getProcessedImage($image, $request));
 
         return $this->respondWithHeaders($response);
     }
@@ -62,5 +62,14 @@ class ImageController extends Controller
         return [
             'Content-Type' => 'image/png'
         ];
+    }
+
+    protected function getProcessedImage($image, $request)
+    {
+        return $this->c->image->make(uploads_path($image->uuid))
+            ->resize($request->getParam('s'), null, function ($constraint) {
+                $constraint->aspectRatio();
+            })
+            ->encode('png');
     }
 }
