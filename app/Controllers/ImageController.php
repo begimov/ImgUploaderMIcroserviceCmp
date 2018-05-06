@@ -8,9 +8,22 @@ use Psr\Http\Message\{
     ResponseInterface as Response
 };
 use App\Files\FileStore;
+use App\Models\Image;
+use Exception;
 
 class ImageController extends Controller
 {
+    public function show($request, $response, $args)
+    {
+        try {
+            $image = Image::where('uuid', $args['uuid'])->firstOrFail();
+        } catch (Exception $e) {
+            return $response->withStatus(404);
+        }
+
+        //
+    }
+
     public function store($request, $response, $args)
     {
         if (!$upload = $request->getUploadedFiles()['file'] ?? null) {
@@ -19,10 +32,9 @@ class ImageController extends Controller
 
         try {
             $this->c->image->make($upload->file);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $response->withStatus(422);
-        }
-        
+        }   
         
         $store = (new FileStore)->store($upload);
 
