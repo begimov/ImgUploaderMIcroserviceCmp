@@ -15,6 +15,18 @@ $app = new Slim\App([
         'app' => [
             'name' => getenv('APP_NAME')
         ],
+
+        'database' => [
+            'driver' => 'mysql',
+            'host' => '127.0.0.1',
+            'port' => '3306',
+            'database' => 'imguploadermicroservicecmp',
+            'username' => 'homestead',
+            'password' => 'secret',
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix' => '',
+        ]
     ],
 ]);
 
