@@ -32,4 +32,9 @@ $app = new Slim\App([
 
 $container = $app->getContainer();
 
+$capsule = new Illuminate\Database\Capsule\Manager();
+$capsule->addConnection($container['settings']['database']);
+$capsule->setAsGlobal();
+$capsule->bootEloquent();
+
 require_once __DIR__ . '/../routes/api.php';
