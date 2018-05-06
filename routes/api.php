@@ -2,4 +2,4 @@
 
 use App\Controllers\ImageController;
 
-$app->post('/', ImageController::class . ':store');
+$app->post('/images', ImageController::class . ':store');
