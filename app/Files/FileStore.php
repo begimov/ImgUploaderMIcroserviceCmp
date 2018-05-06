@@ -8,7 +8,7 @@ class FileStore
 {
     public function store(UploadedFile $file)
     {
-        $file->moveTo(__DIR__ . '/../../storage/uploads/' . $file->getClientFilename());
+        $file->moveTo(uploads_path($file->getClientFilename()));
 
         return $this;
     }
