@@ -12,6 +12,9 @@ class ImageController extends Controller
 {
     public function store($request, $response, $args)
     {
-        return $response;
+        if (!$upload = $request->getUploadedFiles()['file'] ?? null) {
+            return $response->withStatus(422);
+        }
+        //
     }
 }
