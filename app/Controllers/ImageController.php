@@ -46,7 +46,6 @@ class ImageController extends Controller
                 'uuid' => $store->getStored()->uuid
             ]
         ]);
-
     }
 
     protected function respondWithHeaders($response)
@@ -67,9 +66,16 @@ class ImageController extends Controller
     protected function getProcessedImage($image, $request)
     {
         return $this->c->image->make(uploads_path($image->uuid))
-            ->resize($request->getParam('s'), null, function ($constraint) {
+            ->resize($this->getRequestedSize($request), null, function ($constraint) {
                 $constraint->aspectRatio();
             })
             ->encode('png');
+    }
+
+    protected function getRequestedSize($request)
+    {
+        $size = $request->getParam('s');
+
+        return $size > 10 && $size < 1000 ? $size : 200;
     }
 }
