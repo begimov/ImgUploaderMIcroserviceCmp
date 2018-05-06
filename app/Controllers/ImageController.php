@@ -21,7 +21,10 @@ class ImageController extends Controller
             return $response->withStatus(404);
         }
 
-        //
+        $response->getBody()
+            ->write($this->c->image->make(uploads_path($image->uuid))->encode('png'));
+
+        return $this->respondWithHeaders($response);
     }
 
     public function store($request, $response, $args)
@@ -44,5 +47,20 @@ class ImageController extends Controller
             ]
         ]);
 
+    }
+
+    protected function respondWithHeaders($response)
+    {
+        foreach ($this->getResponseHeaders() as $name => $value) {
+            $response = $response->withHeader($name, $value);
+        }
+        return $response;
+    }
+
+    protected function getResponseHeaders()
+    {
+        return [
+            'Content-Type' => 'image/png'
+        ];
     }
 }
