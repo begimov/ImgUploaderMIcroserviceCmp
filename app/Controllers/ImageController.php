@@ -7,6 +7,7 @@ use Psr\Http\Message\{
     ServerRequestInterface as Request,
     ResponseInterface as Response
 };
+use App\Files\FileStore;
 
 class ImageController extends Controller
 {
@@ -15,6 +16,10 @@ class ImageController extends Controller
         if (!$upload = $request->getUploadedFiles()['file'] ?? null) {
             return $response->withStatus(422);
         }
-        //
+        
+        $store = (new FileStore)->store($upload);
+
+        die('OK');
+
     }
 }
