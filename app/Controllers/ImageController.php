@@ -19,6 +19,8 @@ class ImageController extends Controller
         
         $store = (new FileStore)->store($upload);
 
+        dump($store->getStored());
+
         die('OK');
 
     }

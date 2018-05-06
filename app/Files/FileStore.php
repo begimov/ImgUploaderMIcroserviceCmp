@@ -4,6 +4,7 @@ namespace App\Files;
 
 use Exception;
 use Slim\Http\UploadedFile;
+use App\Models\Image;
 
 class FileStore
 {
@@ -16,10 +17,15 @@ class FileStore
 
             $file->moveTo(uploads_path($model->uuid));
         } catch(Exception $e) {
-            //
+            // dump($e);
         }
 
         return $this;
+    }
+
+    public function getStored()
+    {
+        return $this->stored;
     }
 
     protected function createModel(UploadedFile $file)
