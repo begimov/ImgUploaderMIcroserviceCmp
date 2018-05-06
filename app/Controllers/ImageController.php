@@ -16,6 +16,13 @@ class ImageController extends Controller
         if (!$upload = $request->getUploadedFiles()['file'] ?? null) {
             return $response->withStatus(422);
         }
+
+        try {
+            $this->c->image->make($upload->file);
+        } catch (\Exception $e) {
+            return $response->withStatus(422);
+        }
+        
         
         $store = (new FileStore)->store($upload);
 
