@@ -26,6 +26,12 @@ $app = new Slim\App([
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
+        ],
+
+        'image' => [
+            'cache' => [
+                'path' => base_path('storage/cache/images')
+            ]
         ]
     ],
 ]);
@@ -42,6 +48,7 @@ $capsule->bootEloquent();
 
 $container['image'] = function($container) {
     $manager = new Intervention\Image\ImageManager();
+    $manager->configure($container['settings']['image']);
     return $manager;
 };
 
