@@ -34,6 +34,10 @@ $container = $app->getContainer();
 
 $capsule = new Illuminate\Database\Capsule\Manager();
 $capsule->addConnection($container['settings']['database']);
+
+$capsule->setEventDispatcher(new Illuminate\Events\Dispatcher());
+
+
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
 

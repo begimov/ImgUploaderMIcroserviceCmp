@@ -30,8 +30,6 @@ class FileStore
 
     protected function createModel(UploadedFile $file)
     {
-        return $this->stored = Image::create([
-            'uuid' => 'sdfsdfsdf'
-        ]);
+        return $this->stored = Image::create();
     }
 }
